@@ -1,11 +1,7 @@
-#include <plog/Log.h>
-#include <plog/Appenders/ColorConsoleAppender.h>
-
+#include <iostream>
 
 int main(int argc, char const *argv[])
 {
-    plog::ColorConsoleAppender<plog::TxtFormatter> consoleAppender;
-    plog::init(plog::verbose, &consoleAppender);
-    LOG_DEBUG << "Hello cim";
+    std::cout << "Hello cim !!" << std::endl;
     return 0;
 }
