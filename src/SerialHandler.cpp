@@ -1,7 +1,6 @@
 #include "SerialHandler.h"
 
 
-
 namespace cim {
 
     SerialHandler::SerialHandler(): port_name_(""), baud_rate_(0)
@@ -31,7 +30,7 @@ namespace cim {
 
     bool SerialHandler::open_port()
     {
-        file_descriptor_ = open(port_name_.c_str(), O_RDWR | O_NOCTTY | O_NDELAY);
+        file_descriptor_ = open(port_name_.c_str(), O_RDWR | O_NDELAY);
         if (file_descriptor_ == -1)
         {
             std::cerr << "\033[1;31mError: \033[0m" << " unable to open " << port_name_ << std::endl;
@@ -70,15 +69,23 @@ namespace cim {
 
     bool SerialHandler::close_port()
     {
-        close(file_descriptor_);
-        return true;
+        return (!close(file_descriptor_));
     }
 
 
-    const std::string SerialHandler::read()
+    const std::string& SerialHandler::read_port()
     {
-        std::string poo("waaa");
-        return poo;
+        int res = read(file_descriptor_, serial_buffer_, sizeof(serial_buffer_));
+
+        if(res > 0)
+        {
+            return std::move(std::string(serial_buffer_, serial_buffer_ + res));
+        }
+        if(res < 0)
+        {
+            std::cerr << "\033[1;31mError: \033[0m" << " unable to read from " << port_name_ << std::endl;
+        }
+        return std::move(std::string(""));
     }
 
 

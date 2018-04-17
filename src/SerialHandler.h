@@ -1,4 +1,5 @@
 #ifndef SERIAL_HANDLERSERIAL_HANDLER_H_
+#define SERIAL_HANDLERSERIAL_HANDLER_H_
 
 #include <string>
 #include <unordered_map>
@@ -60,7 +61,7 @@ namespace cim {
 
         bool close_port();
 
-        const std::string read();
+        const std::string& read_port();
 
         bool write(const std::string payload);
 
@@ -84,10 +85,8 @@ namespace cim {
         unsigned int baud_rate_;
         int file_descriptor_;
         struct termios settings_;
-
+        unsigned char serial_buffer_[4096];
     };
 }
-
-
 
 #endif /* SERIAL_HANDLER_H_ */
