@@ -51,6 +51,8 @@ namespace cim {
             {4000000 , B4000000}
         };
 
+        static constexpr unsigned int MAX_BUFFER_SIZE = 8192;
+
         SerialHandler();
 
         SerialHandler(SerialHandler&& handler);
@@ -61,9 +63,9 @@ namespace cim {
 
         bool close_port();
 
-        const std::string& read_port();
+        bool read_port(std::string& data);
 
-        bool write(const std::string payload);
+        bool write_port(const std::string& payload);
 
         const std::string& get_port_name() const;
 
@@ -85,7 +87,7 @@ namespace cim {
         unsigned int baud_rate_;
         int file_descriptor_;
         struct termios settings_;
-        unsigned char serial_buffer_[4096];
+        unsigned char serial_buffer_[MAX_BUFFER_SIZE];
     };
 }
 
