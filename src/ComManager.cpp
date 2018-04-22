@@ -1,4 +1,5 @@
 #include "ComManager.h"
+#include <chrono>
 
 
 namespace cim
@@ -34,19 +35,24 @@ namespace cim
     {
         while(true)
         {
+            write_lock_.lock();
+            if(!outgoing_data_.empty())
             {
-                std::lock_guard<std::mutex> write_guard(write_lock_);
-                if(!outgoing_data_.empty())
-                {
-                    handler_.write_port(outgoing_data_.back());
-                    outgoing_data_.pop_back();
-                }
+                handler_.write_port(outgoing_data_.back());
+                outgoing_data_.pop_back();
             }
+            write_lock_.unlock();
+
             std::string data;
             if(handler_.read_port(data))
             {
-                std::lock_guard<std::mutex> read_guard(read_lock_);
+                read_lock_.lock();
                 incoming_data_.push_front(data);
+                read_lock_.unlock();
+            }
+            else
+            {
+                std::this_thread::sleep_for(std::chrono::milliseconds(50));
             }
         }
     }
