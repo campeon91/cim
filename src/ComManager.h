@@ -2,6 +2,7 @@
 #define COM_MANAGER_H_
 
 #include <deque>
+#include <thread>
 #include <mutex>
 #include "SerialHandler.h"
 
@@ -18,6 +19,7 @@ namespace cim
         bool start();
         bool stop();
         void process();
+        std::thread spawn();
         std::mutex& get_read_lock();
         std::mutex& get_write_lock();
 

@@ -51,6 +51,11 @@ namespace cim
         }
     }
 
+    std::thread ComManager::spawn()
+    {
+        return std::thread{[&] {process();}};
+    }
+
     std::mutex& ComManager::get_read_lock()
     {
         return read_lock_;
