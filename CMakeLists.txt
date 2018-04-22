@@ -8,4 +8,5 @@ add_executable(
     cim
     src/main.cpp
     src/SerialHandler.cpp
+    src/ComManager.cpp
     )

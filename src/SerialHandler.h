@@ -11,8 +11,8 @@
 #include <errno.h>
 
 
-namespace cim {
-
+namespace cim
+{
     class SerialHandler
     {
 

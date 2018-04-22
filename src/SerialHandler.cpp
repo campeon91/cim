@@ -1,17 +1,16 @@
 #include "SerialHandler.h"
 
 
-namespace cim {
+namespace cim
+{
 
     SerialHandler::SerialHandler(): port_name_(""), baud_rate_(0)
     {}
-
 
     SerialHandler::~SerialHandler()
     {
         close_port();
     }
-
 
     SerialHandler::SerialHandler(SerialHandler&& other)
     {
@@ -21,12 +20,10 @@ namespace cim {
         other.set_baud_rate(0);
     }
 
-
     SerialHandler&& SerialHandler::operator=(SerialHandler& other)
     {
         return std::move(other);
     }
-
 
     bool SerialHandler::open_port()
     {
@@ -66,12 +63,10 @@ namespace cim {
         return true;
     }
 
-
     bool SerialHandler::close_port()
     {
         return (!close(file_descriptor_));
     }
-
 
     bool SerialHandler::read_port(std::string& data)
     {
@@ -88,7 +83,6 @@ namespace cim {
         }
         return false;
     }
-
 
     bool SerialHandler::write_port(const std::string& payload)
     {
@@ -107,24 +101,20 @@ namespace cim {
         return true;
     }
 
-
     const std::string& SerialHandler::get_port_name() const
     {
         return port_name_;
     }
-
 
     void SerialHandler::set_port_name(const std::string& str)
     {
         port_name_ = str;
     }
 
-
     const unsigned int SerialHandler::get_baud_rate() const
     {
         return baud_rate_;
     }
-
 
     void SerialHandler::set_baud_rate(const unsigned int baud)
     {
