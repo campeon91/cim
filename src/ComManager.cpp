@@ -15,23 +15,23 @@ namespace cim
         stop();
     }
 
-    void ComManager::init(const std::string& port, const unsigned int baud)
+    auto ComManager::init(const std::string& port, const unsigned int baud) -> void
     {
         handler_.set_port_name(port);
         handler_.set_baud_rate(baud);
     }
 
-    bool ComManager::start()
+    auto ComManager::start() -> bool
     {
         return handler_.open_port();
     }
 
-    bool ComManager::stop()
+    auto ComManager::stop() -> bool
     {
         return handler_.close_port();
     }
 
-    void ComManager::process()
+    auto ComManager::process() -> void
     {
         while(true)
         {
@@ -57,17 +57,17 @@ namespace cim
         }
     }
 
-    std::thread ComManager::spawn()
+    auto ComManager::spawn() -> std::thread
     {
         return std::thread{[&] {process();}};
     }
 
-    std::mutex& ComManager::get_read_lock()
+    auto ComManager::get_read_lock() -> std::mutex&
     {
         return read_lock_;
     }
 
-    std::mutex& ComManager::get_write_lock()
+    auto ComManager::get_write_lock() -> std::mutex&
     {
         return write_lock_;
     }
