@@ -1,19 +1,14 @@
 #include "SerialHandler.h"
+#include "ComManager.h"
 
 int main(int argc, char const *argv[])
 {
-    cim::SerialHandler handler;
-    handler.set_port_name("/dev/ttyUSB0");
-    handler.set_baud_rate(115200);
-    handler.open_port();
-
-    while(true)
-    {
-        std::string data;
-        if(handler.read_port(data))
-        {
-            std::cout << data << std::endl;
-        }
-    }
+    std::deque<std::string> incoming_data;
+    std::deque<std::string> outgoing_data;
+    cim::ComManager manager(incoming_data, outgoing_data);
+    manager.init("/dev/ttyUSB0",115200);
+    manager.start();
+    std::thread manager_thread{manager.spawn()};
+    manager_thread.join();
     return 0;
 }
