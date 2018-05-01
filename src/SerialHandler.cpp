@@ -25,7 +25,7 @@ namespace cim
         return std::move(other);
     }
 
-    auto SerialHandler::open_port() -> bool
+    bool SerialHandler::open_port()
     {
         file_descriptor_ = open(port_name_.c_str(), O_RDWR | O_NDELAY | O_NOCTTY);
         if (file_descriptor_ == -1)
@@ -63,12 +63,12 @@ namespace cim
         return true;
     }
 
-    auto SerialHandler::close_port() -> bool
+    bool SerialHandler::close_port()
     {
         return (!close(file_descriptor_));
     }
 
-    auto SerialHandler::read_port(std::string& data) -> bool
+    bool SerialHandler::read_port(std::string& data)
     {
         const int res = read(file_descriptor_, serial_buffer_, sizeof(serial_buffer_));
 
@@ -84,7 +84,7 @@ namespace cim
         return false;
     }
 
-    auto SerialHandler::write_port(const std::string& payload) -> bool
+    bool SerialHandler::write_port(const std::string& payload)
     {
         if (payload.empty())
         {
@@ -101,22 +101,22 @@ namespace cim
         return true;
     }
 
-    auto SerialHandler::get_port_name() const -> const std::string&
+    const std::string& SerialHandler::get_port_name() const
     {
         return port_name_;
     }
 
-    auto SerialHandler::set_port_name(const std::string& str) -> void
+    void SerialHandler::set_port_name(const std::string& str)
     {
         port_name_ = str;
     }
 
-    auto SerialHandler::get_baud_rate() const -> const unsigned int
+    const unsigned int SerialHandler::get_baud_rate() const
     {
         return baud_rate_;
     }
 
-    auto SerialHandler::set_baud_rate(const unsigned int baud) -> void
+    void SerialHandler::set_baud_rate(const unsigned int baud)
     {
         auto elem = std::find_if(
             available_baudrates.begin(),

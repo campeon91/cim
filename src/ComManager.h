@@ -14,22 +14,14 @@ namespace cim
     public:
 
         ComManager(std::deque<std::string>& in_data, std::deque<std::string>& out_data);
-
         virtual ~ComManager();
-
-        auto init(const std::string& port, const unsigned int baud) -> void;
-
-        auto start() -> bool;
-
-        auto stop() -> bool;
-
-        auto process() -> void;
-
-        auto spawn() -> std::thread;
-
-        auto get_read_lock() -> std::mutex&;
-
-        auto get_write_lock() -> std::mutex&;
+        void init(const std::string& port, const unsigned int baud);
+        bool start();
+        bool stop();
+        void process();
+        std::thread spawn();
+        std::mutex& get_read_lock();
+        std::mutex& get_write_lock();
 
     private:
 

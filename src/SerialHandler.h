@@ -59,19 +59,19 @@ namespace cim
 
         SerialHandler&& operator=(SerialHandler& other);
 
-        auto open_port() -> bool;
+        bool open_port();
 
-        auto close_port() -> bool;
+        bool close_port();
 
-        auto read_port(std::string& data) -> bool;
+        bool read_port(std::string& data);
 
-        auto write_port(const std::string& payload) -> bool;
+        bool write_port(const std::string& payload);
 
-        auto get_port_name() const -> const std::string&;
+        const std::string& get_port_name() const;
 
-        auto set_port_name(const std::string& str) -> void;
+        void set_port_name(const std::string& str);
 
-        auto get_baud_rate() const -> const unsigned int;
+        const unsigned int get_baud_rate() const;
 
         void set_baud_rate(const unsigned int baud);
 
