@@ -1,5 +1,5 @@
-#ifndef SERIAL_HANDLERSERIAL_HANDLER_H_
-#define SERIAL_HANDLERSERIAL_HANDLER_H_
+#ifndef SERIAL_HANDLER_H_
+#define SERIAL_HANDLER_H_
 
 #include <string>
 #include <unordered_map>
