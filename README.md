@@ -1,2 +1,2 @@
-# cim
-cu serial client improved
+# pulsar
+A minimal serial client
